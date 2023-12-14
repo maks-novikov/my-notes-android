@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Notes</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_account">Already have account? <a href="#">Login</a> </string>
+</resources>
