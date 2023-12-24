@@ -16,7 +16,7 @@ class AuthService {
     private val dispatcher = Dispatchers.IO
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://172.25.240.1:8080/api/v1/")
+        .baseUrl("http://192.168.0.115:8080/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

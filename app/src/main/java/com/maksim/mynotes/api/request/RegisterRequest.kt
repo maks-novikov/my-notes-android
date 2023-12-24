@@ -4,7 +4,6 @@ import com.maksim.mynotes.data.UserRole
 
 data class RegisterRequest(
     val login: String,
-    val email: String,
     val password: String,
     val firstName: String,
     val lastName: String,

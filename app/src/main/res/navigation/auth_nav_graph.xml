@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_nav_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/authHomeFragment">
 
-    <!--<activity
-        android:id="@+id/authActivity"
-        android:name="com.maksim.mynotes.ui.auth.AuthActivity"
-        tools:layout="@layout/activity_auth" />-->
+    <fragment
+        android:id="@+id/authHomeFragment"
+        android:name="com.maksim.mynotes.ui.auth.HomeAuthFragment"
+        tools:layout="@layout/fragment_home_auth" >
+        <action
+            android:id="@+id/action_authHomeFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_authHomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
