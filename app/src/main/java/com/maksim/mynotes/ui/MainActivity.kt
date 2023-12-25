@@ -3,8 +3,7 @@ package com.maksim.mynotes.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.maksim.mynotes.R
-import com.maksim.mynotes.api.request.LoginRequest
-import com.maksim.mynotes.data.auth.AuthService
+import com.maksim.mynotes.data.api.auth.AuthService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

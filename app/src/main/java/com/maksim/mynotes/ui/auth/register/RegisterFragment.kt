@@ -1,16 +1,14 @@
 package com.maksim.mynotes.ui.auth.register
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.maksim.mynotes.R
-import com.maksim.mynotes.api.request.RegisterRequest
-import com.maksim.mynotes.data.UserRole
-import com.maksim.mynotes.data.auth.AuthService
 import com.maksim.mynotes.databinding.FragmentRegisterBinding
 import com.maksim.mynotes.ui.base.BaseFragment
+import com.maksim.mynotes.ui.base.DefaultViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,6 +16,9 @@ import kotlinx.coroutines.launch
 class RegisterFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegisterBinding
+    private val viewModel by lazy {
+        ViewModelProvider(this, DefaultViewModelFactory())[RegisterFragmentViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,11 +38,11 @@ class RegisterFragment : BaseFragment() {
     private fun submitRegister() {
 
 
-        val auth = AuthService()
+        //val auth = AuthService()
 
         CoroutineScope(Dispatchers.Main).launch {
 
-            auth.register(
+            /*auth.register(
                 RegisterRequest(
                     "maks",
                     "max123",
@@ -50,7 +51,7 @@ class RegisterFragment : BaseFragment() {
                     UserRole.CLIENT,
                     true
                 )
-            )
+            )*/
             /* auth.login(LoginRequest("maks@g.com", "max123")) */
         }
 
@@ -61,11 +62,11 @@ class RegisterFragment : BaseFragment() {
         val repeatPassword = binding.repeatPasswordInput.text.toString().trim()
 
         val errors = mutableListOf<String>()
-        if (username.isNullOrEmpty()) {
+        if (username.isEmpty()) {
             errors.add(getString(R.string.empty_username))
         }
 
-        if (password.isNullOrEmpty() || repeatPassword.isNullOrEmpty()) {
+        if (password.isEmpty() || repeatPassword.isEmpty()) {
             errors.add(getString(R.string.password_and_or_repeat_empty))
         }
 
@@ -75,7 +76,7 @@ class RegisterFragment : BaseFragment() {
 
 
         if (errors.isEmpty()) {
-
+            viewModel.register(username, password, firstName, lastName)
         } else {
 
         }

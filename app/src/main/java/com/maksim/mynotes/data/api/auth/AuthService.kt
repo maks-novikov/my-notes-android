@@ -1,11 +1,11 @@
-package com.maksim.mynotes.data.auth
+package com.maksim.mynotes.data.api.auth
 
 import android.util.Log
-import com.maksim.mynotes.api.client.AuthApi
-import com.maksim.mynotes.api.request.LoginRequest
-import com.maksim.mynotes.api.request.RegisterRequest
-import com.maksim.mynotes.api.response.LoginResponse
-import com.maksim.mynotes.api.response.RegisterResponse
+import com.maksim.mynotes.data.api.auth.login.LoginRequest
+
+import com.maksim.mynotes.data.api.auth.login.LoginResponse
+import com.maksim.mynotes.data.api.auth.register.RegisterRequest
+import com.maksim.mynotes.data.api.auth.register.RegisterResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
