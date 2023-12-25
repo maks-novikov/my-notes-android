@@ -27,4 +27,8 @@ class AuthRepository(
             sessionHolder.setSession(UserSession(it.username, it.token))
         }
     }
+
+    suspend fun logout() {
+        sessionHolder.clearSession()
+    }
 }
