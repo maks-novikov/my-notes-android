@@ -4,6 +4,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("../app/debug-key")
+            storePassword = "max123"
+            keyAlias = "my-notes-debug"
+            keyPassword = "max123"
+        }
+    }
     namespace = "com.maksim.mynotes"
     compileSdk = 34
 
@@ -24,6 +32,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            applicationIdSuffix = ".dev"
         }
     }
     compileOptions {
