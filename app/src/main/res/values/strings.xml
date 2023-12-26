@@ -8,4 +8,10 @@
     <string name="empty_username">Username cannot be empty</string>
     <string name="password_and_or_repeat_empty">Password and/or repeat password are empty</string>
     <string name="password_not_match_repeat">Password and repeat password not match</string>
+    <string name="submit_button">Submit</string>
+    <string name="repeat_password_hint">Repeat Password...</string>
+    <string name="password_hint">Password...</string>
+    <string name="last_name_hint">Last Name...</string>
+    <string name="first_name_hint">First Name...</string>
+    <string name="username_hint">Username...</string>
 </resources>
