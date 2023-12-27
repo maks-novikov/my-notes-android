@@ -2,7 +2,6 @@ package com.maksim.mynotes.ui.base
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.maksim.mynotes.ui.di.AppContainer
 
 abstract class BaseFragment: Fragment(), BaseView {
 
@@ -11,10 +10,6 @@ abstract class BaseFragment: Fragment(), BaseView {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         _activity = activity as BaseActivity
-    }
-
-    override fun getAppContainer(): AppContainer {
-        return _activity.getAppContainer()
     }
 
     override fun closeKeyboard() {

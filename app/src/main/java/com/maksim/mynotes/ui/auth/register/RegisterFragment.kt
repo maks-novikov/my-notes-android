@@ -4,22 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.maksim.mynotes.R
 import com.maksim.mynotes.databinding.FragmentRegisterBinding
 import com.maksim.mynotes.ui.base.BaseFragment
-import com.maksim.mynotes.ui.base.DefaultViewModelFactory
+
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.StringBuilder
 
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegisterBinding
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            DefaultViewModelFactory(getAppContainer())
-        )[RegisterFragmentViewModel::class.java]
-    }
+    private val viewModel by viewModels<RegisterFragmentViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +29,7 @@ class RegisterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         binding.submitBtn.setOnClickListener {
             closeKeyboard()

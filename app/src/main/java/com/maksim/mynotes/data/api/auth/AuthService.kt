@@ -8,19 +8,17 @@ import com.maksim.mynotes.data.api.auth.register.RegisterRequest
 import com.maksim.mynotes.data.api.auth.register.RegisterResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class AuthService {
+class AuthService(private val authApi: AuthApi){
 
     private val dispatcher = Dispatchers.IO
 
-    private val retrofit = Retrofit.Builder()
+   /* private val retrofit = Retrofit.Builder()
         .baseUrl("http://192.168.0.115:8080/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private val authApi: AuthApi = retrofit.create(AuthApi::class.java)
+    private val authApi: AuthApi = retrofit.create(AuthApi::class.java)*/
 
     suspend fun login(request: LoginRequest): LoginResponse {
         return withContext(dispatcher) {
