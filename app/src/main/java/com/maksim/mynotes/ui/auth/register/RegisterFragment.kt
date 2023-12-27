@@ -15,7 +15,10 @@ class RegisterFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel by lazy {
-        ViewModelProvider(this, DefaultViewModelFactory())[RegisterFragmentViewModel::class.java]
+        ViewModelProvider(
+            this,
+            DefaultViewModelFactory(getAppContainer())
+        )[RegisterFragmentViewModel::class.java]
     }
 
     override fun onCreateView(
