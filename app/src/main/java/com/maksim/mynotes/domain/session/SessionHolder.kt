@@ -13,6 +13,7 @@ class SessionHolder(private val sessionStorage: SessionStorage) {
     fun getSession(): UserSession? = session.get()
 
     fun setSession(session: UserSession) {
+        sessionStorage.setSession(session)
         this.session.set(session)
     }
 
