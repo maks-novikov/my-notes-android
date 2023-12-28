@@ -13,13 +13,6 @@ class AuthService(private val authApi: AuthApi){
 
     private val dispatcher = Dispatchers.IO
 
-   /* private val retrofit = Retrofit.Builder()
-        .baseUrl("http://192.168.0.115:8080/api/v1/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val authApi: AuthApi = retrofit.create(AuthApi::class.java)*/
-
     suspend fun login(request: LoginRequest): LoginResponse {
         return withContext(dispatcher) {
             try {

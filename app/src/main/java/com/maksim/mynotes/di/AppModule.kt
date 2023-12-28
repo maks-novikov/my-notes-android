@@ -9,6 +9,7 @@ import com.maksim.mynotes.domain.AuthRepository
 import com.maksim.mynotes.domain.session.SessionHolder
 import com.maksim.mynotes.domain.session.SessionStorage
 import com.maksim.mynotes.domain.session.UserSession
+import com.maksim.mynotes.domain.useCase.LoginUseCase
 import com.maksim.mynotes.domain.useCase.RegisterUseCase
 import dagger.Module
 import dagger.Provides
@@ -23,11 +24,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+
+    @Provides
+    fun getSession(sessionStorage: SessionStorage): UserSession? {
+        return sessionStorage.getSession()
+    }
+
     @Provides
     @Singleton
     fun provideAuthApi(): AuthApi {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.0.115:8080/api/v1/")
+            //.baseUrl("http://192.168.0.115:8080/api/v1/")
+            .baseUrl("http://192.168.40.31:8080/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AuthApi::class.java)
@@ -57,7 +65,8 @@ object AppModule {
     }
 
     @Provides
-    fun getSession(sessionStorage: SessionStorage): UserSession? {
-        return sessionStorage.getSession()
+    fun provideLoginUseCase(authRepository: AuthRepository): LoginUseCase {
+        return LoginUseCase(authRepository)
     }
+
 }
