@@ -1,5 +1,6 @@
 package com.maksim.mynotes.ui.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.maksim.mynotes.R
 import com.maksim.mynotes.databinding.FragmentLoginBinding
+import com.maksim.mynotes.ui.MainActivity
 import com.maksim.mynotes.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.StringBuilder
@@ -58,6 +60,19 @@ class LoginFragment : BaseFragment() {
             binding.errorsTv.text = buildErrors(errors)
         }
 
+        observerState()
+
+    }
+
+    private fun observerState() {
+        viewModel.loginViewState.observe(viewLifecycleOwner) {
+            if (it.error == null) {
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                buildErrors(listOf("${it.error}"))
+            }
+        }
     }
 
     private fun buildErrors(errors: List<String>): String {
