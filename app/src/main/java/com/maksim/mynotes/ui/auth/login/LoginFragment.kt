@@ -10,6 +10,7 @@ import com.maksim.mynotes.R
 import com.maksim.mynotes.databinding.FragmentLoginBinding
 import com.maksim.mynotes.ui.MainActivity
 import com.maksim.mynotes.ui.base.BaseFragment
+import com.maksim.mynotes.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.StringBuilder
 
@@ -66,7 +67,7 @@ class LoginFragment : BaseFragment() {
     private fun observerState() {
         viewModel.loginViewState.observe(viewLifecycleOwner) {
             if (it.error == null) {
-                val intent = Intent(requireActivity(), MainActivity::class.java)
+                val intent = Intent(requireActivity(), HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
             } else {

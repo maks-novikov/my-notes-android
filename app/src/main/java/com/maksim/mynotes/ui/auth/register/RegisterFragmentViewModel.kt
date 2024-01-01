@@ -1,6 +1,5 @@
 package com.maksim.mynotes.ui.auth.register
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.maksim.mynotes.data.api.auth.register.RegisterRequest
 import com.maksim.mynotes.domain.AsyncResult
 import com.maksim.mynotes.domain.useCase.RegisterUseCase
-import com.maksim.mynotes.ui.auth.login.LoginFragmentViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel

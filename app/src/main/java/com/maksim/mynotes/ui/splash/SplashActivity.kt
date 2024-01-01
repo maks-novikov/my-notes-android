@@ -7,6 +7,7 @@ import com.maksim.mynotes.databinding.ActivitySplashBinding
 import com.maksim.mynotes.ui.MainActivity
 import com.maksim.mynotes.ui.auth.AuthActivity
 import com.maksim.mynotes.ui.base.BaseActivity
+import com.maksim.mynotes.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +22,7 @@ class SplashActivity : BaseActivity() {
         setContentView(binding.root)
 
         val intent = if (viewModel.session != null) {
-            Intent(this, MainActivity::class.java)
+            Intent(this, HomeActivity::class.java)
         } else {
             Intent(this, AuthActivity::class.java)
         }
