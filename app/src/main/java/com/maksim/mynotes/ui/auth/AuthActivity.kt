@@ -3,13 +3,9 @@ package com.maksim.mynotes.ui.auth
 import android.os.Bundle
 import android.util.Log
 import com.maksim.mynotes.data.crypto.CryptoManager
-
 import com.maksim.mynotes.databinding.ActivityAuthBinding
 import com.maksim.mynotes.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
 @AndroidEntryPoint
 class AuthActivity : BaseActivity() {
@@ -20,6 +16,7 @@ class AuthActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
     }
 

@@ -10,7 +10,7 @@ import com.maksim.mynotes.domain.AsyncResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AuthService(private val authApi: AuthApi){
+class AuthService(private val authApi: AuthApi) {
 
     private val dispatcher = Dispatchers.IO
 
@@ -28,12 +28,12 @@ class AuthService(private val authApi: AuthApi){
     }
 
     suspend fun register(request: RegisterRequest): AsyncResult<RegisterResponse> {
-        return withContext(dispatcher){
+        return withContext(dispatcher) {
             try {
                 val data = authApi.register(request)
                 Log.d("RegisterResponse", "register data: $data")
                 AsyncResult.success(data)
-            }catch (e: Throwable){
+            } catch (e: Throwable) {
                 Log.e("RegisterError", "error: $e")
                 AsyncResult.error(e)
             }

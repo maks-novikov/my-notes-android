@@ -6,7 +6,6 @@ import android.util.Base64
 import java.io.InputStream
 import java.io.OutputStream
 import java.lang.IllegalStateException
-import java.nio.ByteBuffer
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
