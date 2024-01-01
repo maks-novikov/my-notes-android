@@ -15,8 +15,13 @@ abstract class ApiClient(
                 val response = requestBlock()
                 AsyncResult.success(response)
             } catch (e: Throwable) {
+                val parsedError = parseException(e)
                 AsyncResult.error(e)
             }
         }
+    }
+
+    private fun parseException(e: Throwable) {
+
     }
 }

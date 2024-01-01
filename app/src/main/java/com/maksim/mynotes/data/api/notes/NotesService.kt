@@ -4,7 +4,6 @@ import com.maksim.mynotes.data.api.ApiClient
 import com.maksim.mynotes.domain.AsyncResult
 import kotlinx.coroutines.CoroutineDispatcher
 
-
 class NotesService(
     private val notesApi: NotesApi,
     private val coroutineDispatcher: CoroutineDispatcher

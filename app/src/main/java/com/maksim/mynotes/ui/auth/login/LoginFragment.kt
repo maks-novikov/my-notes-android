@@ -68,6 +68,7 @@ class LoginFragment : BaseFragment() {
             if (it.error == null) {
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
+                activity?.finish()
             } else {
                 buildErrors(listOf("${it.error}"))
             }
