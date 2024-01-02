@@ -1,4 +1,4 @@
-package com.maksim.mynotes.ui.home.ui.gallery
+package com.maksim.mynotes.ui.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

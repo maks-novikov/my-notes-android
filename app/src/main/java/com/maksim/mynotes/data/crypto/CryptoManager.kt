@@ -56,7 +56,6 @@ class CryptoManager {
         }.generateKey()
     }
 
-
     fun encrypt(data: String): String {
         val encryptedBytes = encryptCipher.doFinal(data.toByteArray())
 
@@ -102,5 +101,4 @@ class CryptoManager {
             getDecryptCipher(iv).doFinal(data)
         }
     }
-
 }

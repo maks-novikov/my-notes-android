@@ -3,6 +3,7 @@ package com.maksim.mynotes.di
 import android.content.Context
 import com.maksim.mynotes.data.DefaultAuthRepository
 import com.maksim.mynotes.data.api.BaseUrlProvider
+import com.maksim.mynotes.data.api.TokenInterceptor
 import com.maksim.mynotes.data.api.auth.AuthApi
 import com.maksim.mynotes.data.api.auth.AuthService
 import com.maksim.mynotes.data.api.notes.NotesApi
@@ -14,6 +15,7 @@ import com.maksim.mynotes.domain.note.NoteRepository
 import com.maksim.mynotes.domain.session.SessionHolder
 import com.maksim.mynotes.domain.session.SessionStorage
 import com.maksim.mynotes.domain.session.UserSession
+import com.maksim.mynotes.domain.useCase.GetNotesUseCase
 import com.maksim.mynotes.domain.useCase.LoginUseCase
 import com.maksim.mynotes.domain.useCase.LogoutUseCase
 import com.maksim.mynotes.domain.useCase.RegisterUseCase
@@ -23,8 +25,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -33,8 +37,19 @@ object AppModule {
 
 
     @Provides
-    fun getSession(sessionStorage: SessionStorage): UserSession? {
+    fun provideUserSession(sessionStorage: SessionStorage): UserSession? {
         return sessionStorage.getSession()
+    }
+
+    @Provides
+    fun provideTokenInterceptor(userSession: UserSession?): TokenInterceptor {
+        return TokenInterceptor(userSession)
+    }
+
+    @Provides
+    @Named("AuthorizedHttpClient")
+    fun getAuthorizedHttpClient(tokenInterceptor: TokenInterceptor): OkHttpClient {
+        return OkHttpClient.Builder().addInterceptor(tokenInterceptor).build()
     }
 
     @Provides
@@ -55,10 +70,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNotesApi(): NotesApi {
+    fun provideNotesApi(@Named("AuthorizedHttpClient") okHttpClient: OkHttpClient): NotesApi {
         return Retrofit.Builder()
             .baseUrl(BaseUrlProvider.getBaseUrl())
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .build()
             .create(NotesApi::class.java)
     }
@@ -103,5 +119,10 @@ object AppModule {
     @Provides
     fun provideLogoutUseCase(authRepository: AuthRepository): LogoutUseCase {
         return LogoutUseCase(authRepository)
+    }
+
+    @Provides
+    fun provideGetNotesUseCase(noteRepository: NoteRepository): GetNotesUseCase {
+        return GetNotesUseCase(noteRepository)
     }
 }
