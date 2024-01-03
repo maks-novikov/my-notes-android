@@ -11,6 +11,7 @@ import com.maksim.mynotes.data.api.notes.NotesService
 import com.maksim.mynotes.data.note.DefaultNoteRepository
 import com.maksim.mynotes.data.session.DefaultSessionStorage
 import com.maksim.mynotes.domain.AuthRepository
+import com.maksim.mynotes.domain.note.NoteMapper
 import com.maksim.mynotes.domain.note.NoteRepository
 import com.maksim.mynotes.domain.session.SessionHolder
 import com.maksim.mynotes.domain.session.SessionStorage
@@ -35,6 +36,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Provides
+    fun provideNoteMapper(): NoteMapper {
+        return NoteMapper()
+    }
 
     @Provides
     fun provideUserSession(sessionStorage: SessionStorage): UserSession? {
@@ -87,8 +92,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteRepository(notesService: NotesService): NoteRepository {
-        return DefaultNoteRepository(notesService)
+    fun provideNoteRepository(notesService: NotesService, noteMapper: NoteMapper): NoteRepository {
+        return DefaultNoteRepository(notesService, noteMapper)
     }
 
     @Provides

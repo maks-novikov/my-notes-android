@@ -13,7 +13,7 @@ interface NotesApi {
     suspend fun getAllNotes(): List<NoteResponse>
 
     @GET("card/{id}")
-    suspend fun getNote(id: Int): NoteResponse?
+    suspend fun getNote(id: Int): NoteResponse
 
     @POST("card/create")
     suspend fun createNote(@Body request: CreateNoteRequest): Unit

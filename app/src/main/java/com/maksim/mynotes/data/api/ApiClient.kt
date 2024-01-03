@@ -22,6 +22,6 @@ abstract class ApiClient(
     }
 
     private fun parseException(e: Throwable) {
-
+        //TODO create error parsing logic
     }
 }

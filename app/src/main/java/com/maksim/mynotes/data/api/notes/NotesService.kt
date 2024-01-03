@@ -9,7 +9,7 @@ class NotesService(
     private val coroutineDispatcher: CoroutineDispatcher
 ) : ApiClient(coroutineDispatcher) {
 
-    suspend fun getNote(noteId: Int): AsyncResult<NoteResponse?> {
+    suspend fun getNote(noteId: Int): AsyncResult<NoteResponse> {
         return execute {
             notesApi.getNote(noteId)
         }
