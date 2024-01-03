@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maksim.mynotes.data.api.notes.NoteResponse
 import com.maksim.mynotes.domain.AsyncResult
+import com.maksim.mynotes.domain.note.Note
 import com.maksim.mynotes.domain.useCase.GetNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,8 +17,8 @@ class NotesSummaryViewModel @Inject constructor(
     private val getNotesUseCase: GetNotesUseCase
 ): ViewModel() {
 
-    private val _notesLiveData = MutableLiveData<List<NoteResponse>>()
-    val notesLiveData: LiveData<List<NoteResponse>> = _notesLiveData
+    private val _notesLiveData = MutableLiveData<List<Note>>()
+    val notesLiveData: LiveData<List<Note>> = _notesLiveData
 
     init {
         viewModelScope.launch {

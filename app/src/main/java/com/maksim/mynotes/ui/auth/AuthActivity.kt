@@ -16,8 +16,6 @@ class AuthActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
     }
 
 
