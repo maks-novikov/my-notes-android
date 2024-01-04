@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.maksim.mynotes.databinding.FragmentEditNoteBinding
+
+data class EditNoteFragmentArgs(
+    val noteId: Int? = null
+)
 
 class EditNoteFragment : Fragment() {
 
     private val viewModel by viewModels<EditNoteViewModel>()
+
     private var _binding: FragmentEditNoteBinding? = null
     private val binding get() = _binding!!
 
@@ -24,7 +28,15 @@ class EditNoteFragment : Fragment() {
         return binding.root
     }
 
+    private fun saveNote() {
+        val title = binding.editNoteTitle.text.toString().trim()
+        val description = binding.noteInput.text.toString().trim()
+
+        viewModel.saveNote(title, description)
+    }
+
     override fun onDestroyView() {
+        saveNote()
         super.onDestroyView()
         _binding = null
     }
