@@ -33,7 +33,8 @@ class HomeActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_home)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_my_notes, R.id.nav_settings), drawerLayout)
+        appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.nav_my_notes, R.id.nav_settings), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
@@ -44,7 +45,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // menuInflater.inflate(R.menu.home, menu)
+        // menuInflater.inflate(R.menu.home, menu)
         return true
     }
 

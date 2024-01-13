@@ -16,7 +16,7 @@ interface NotesApi {
     suspend fun getNote(id: Int): NoteResponse
 
     @POST("card/create")
-    suspend fun createNote(@Body request: CreateNoteRequest): Unit
+    suspend fun createNote(@Body request: CreateNoteRequest): NoteResponse
 
     @DELETE("card/{id}")
     suspend fun deleteNote(id: Int): Unit

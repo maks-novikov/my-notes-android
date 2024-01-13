@@ -21,7 +21,7 @@ class NotesService(
         }
     }
 
-    suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Unit> {
+    suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<NoteResponse> {
         return execute {
             notesApi.createNote(noteRequest)
         }
