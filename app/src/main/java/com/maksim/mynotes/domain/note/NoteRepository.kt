@@ -10,5 +10,5 @@ interface NoteRepository {
     suspend fun getNote(id: Int): AsyncResult<Note>
     suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Unit>
     suspend fun deleteNote(id: Int): AsyncResult<Unit>
-    fun observeNote(id: Int): LiveData<Note>
+    fun observeNote(id: Int): LiveData<Note?>
 }

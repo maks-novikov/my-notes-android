@@ -1,5 +1,6 @@
 package com.maksim.mynotes.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -13,6 +14,9 @@ interface NoteDao {
 
     @Query("SELECT * FROM NoteEntity")
     suspend fun getAll(): List<NoteEntity>
+
+    @Query("SELECT * FROM NoteEntity WHERE id = :id")
+    fun observe(id: Int): LiveData<NoteEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun create(noteEntity: NoteEntity)

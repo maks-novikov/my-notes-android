@@ -2,6 +2,7 @@ package com.maksim.mynotes.data.note
 
 import android.provider.ContactsContract.Data
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.maksim.mynotes.data.api.notes.CreateNoteRequest
 import com.maksim.mynotes.data.api.notes.NotesService
 import com.maksim.mynotes.data.db.NoteDao
@@ -49,8 +50,10 @@ class DefaultNoteRepository(
          }*/
     }
 
-    override fun observeNote(id: Int): LiveData<Note> {
-        TODO("Not yet implemented")
+    override fun observeNote(id: Int): LiveData<Note?> {
+        return noteDao.observe(id).map {
+            if (it != null) mapper.entityToNote(it) else null
+        }
     }
 
     override suspend fun deleteNote(id: Int): AsyncResult<Unit> {
