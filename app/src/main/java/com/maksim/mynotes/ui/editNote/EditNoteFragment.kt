@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.maksim.mynotes.databinding.FragmentEditNoteBinding
@@ -45,6 +48,14 @@ class EditNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        binding.editNoteTitle.doAfterTextChanged {
+            saveNote()
+        }
+
+        binding.noteInput.doAfterTextChanged {
+            saveNote()
+        }
 
         observeState()
     }
