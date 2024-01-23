@@ -47,7 +47,7 @@ class EditNoteViewModel @Inject constructor(
                     updateNoteUseCase.execute(currentNote)
                 }
             } else {
-                creteNoteUseCase.execute(
+                val noteId = creteNoteUseCase.execute(
                     CreateNoteRequest(
                         title,
                         description,

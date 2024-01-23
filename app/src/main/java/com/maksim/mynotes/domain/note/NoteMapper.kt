@@ -15,8 +15,14 @@ class NoteMapper {
         return responses.map { responseToNote(it) }
     }
 
+    fun responseToEntity(response: NoteResponse): NoteEntity {
+        return with(response) {
+            NoteEntity(id, owner, title, description, createdAt)
+        }
+    }
+
     fun entityToNote(entity: NoteEntity): Note {
-        return with(entity){
+        return with(entity) {
             Note(id, owner, title, description, createdAt)
         }
     }

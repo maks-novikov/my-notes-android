@@ -19,7 +19,7 @@ interface NoteDao {
     fun observe(id: Int): LiveData<NoteEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun create(noteEntity: NoteEntity)
+    suspend fun create(noteEntity: NoteEntity): Int
 
     @Update
     suspend fun update(noteEntity: NoteEntity)

@@ -34,11 +34,11 @@ class DefaultNoteRepository(
         }
     }
 
-    override suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Unit> {
+    override suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Int> {
         val response = notesService.createNote(noteRequest)
         return if (response is AsyncResult.Data) {
-
-            AsyncResult.success(Unit)
+            val id = noteDao.create(mapper.responseToEntity(response.data))
+            AsyncResult.success(id)
         } else if (response is AsyncResult.Error) {
             AsyncResult.error(response.error)
         }
