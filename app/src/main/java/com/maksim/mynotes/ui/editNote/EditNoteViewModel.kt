@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maksim.mynotes.data.api.notes.CreateNoteRequest
+import com.maksim.mynotes.domain.AsyncResult
 import com.maksim.mynotes.domain.note.Note
 import com.maksim.mynotes.domain.useCase.CreateNoteUseCase
 import com.maksim.mynotes.domain.useCase.ObserveNoteUseCase
@@ -25,35 +26,49 @@ class EditNoteViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _noteLiveData = MutableLiveData<Note>()
-    val noteLiveData: LiveData<Note> = _noteLiveData
+    var noteLiveData: LiveData<Note?>? = null
 
     init {
         viewModelScope.launch {
             //Take noteId from args, if it null create new empty note and get it's id, observe
             // the id from args or the new created empty note id.
-            val noteId = state.get<Int>(NOTE_ID)
-
-            //noteLiveData = observeNoteUseCase.execute(noteId)
+            val noteId = state.get<Long>(NOTE_ID)
+            if (noteId != null)
+                observeNote(noteId)
         }
+    }
+
+    private fun observeNote(noteId: Long) {
+        noteLiveData = observeNoteUseCase.execute(noteId)
     }
 
 
     fun saveNote(title: String, description: String) {
         viewModelScope.launch {
-            var currentNote = _noteLiveData.value
+            var currentNote = noteLiveData?.value
             if (currentNote != null) {
                 if (currentNote.title != title || currentNote.description != description) {
                     currentNote = currentNote.copy(title = title, description = description)
                     updateNoteUseCase.execute(currentNote)
                 }
             } else {
-                val noteId = creteNoteUseCase.execute(
+                val createResponse = creteNoteUseCase.execute(
                     CreateNoteRequest(
                         title,
                         description,
                         Date().time.toString()
                     )
                 )
+
+                when (createResponse) {
+                    is AsyncResult.Data -> {
+                        state.set(NOTE_ID, createResponse.data)
+                        observeNote(createResponse.data)
+                    }
+
+                    is AsyncResult.Error -> {}
+                }
+
             }
         }
 

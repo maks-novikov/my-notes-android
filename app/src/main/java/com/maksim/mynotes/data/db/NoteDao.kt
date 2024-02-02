@@ -16,10 +16,10 @@ interface NoteDao {
     suspend fun getAll(): List<NoteEntity>
 
     @Query("SELECT * FROM NoteEntity WHERE id = :id")
-    fun observe(id: Int): LiveData<NoteEntity?>
+    fun observe(id: Long): LiveData<NoteEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun create(noteEntity: NoteEntity): Int
+    suspend fun create(noteEntity: NoteEntity): Long
 
     @Update
     suspend fun update(noteEntity: NoteEntity)

@@ -26,7 +26,7 @@ class DefaultNoteRepository(
         }
     }
 
-    override suspend fun getNote(id: Int): AsyncResult<Note> {
+    override suspend fun getNote(id: Long): AsyncResult<Note> {
         return when (val response = notesService.getNote(id)) {
             is AsyncResult.Data -> AsyncResult.success(mapper.responseToNote(response.data))
             is AsyncResult.Error -> AsyncResult.error(response.error)
@@ -34,29 +34,25 @@ class DefaultNoteRepository(
         }
     }
 
-    override suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Int> {
+    override suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Long> {
+
         val response = notesService.createNote(noteRequest)
         return if (response is AsyncResult.Data) {
             val id = noteDao.create(mapper.responseToEntity(response.data))
             AsyncResult.success(id)
-        } else if (response is AsyncResult.Error) {
+        } else {
+            response as AsyncResult.Error
             AsyncResult.error(response.error)
         }
-
-        /* return notesService.createNote(noteRequest).also {
-             if (it is AsyncResult.Data) {
-                 noteDao.create()
-             }
-         }*/
     }
 
-    override fun observeNote(id: Int): LiveData<Note?> {
+    override fun observeNote(id: Long): LiveData<Note?> {
         return noteDao.observe(id).map {
             if (it != null) mapper.entityToNote(it) else null
         }
     }
 
-    override suspend fun deleteNote(id: Int): AsyncResult<Unit> {
+    override suspend fun deleteNote(id: Long): AsyncResult<Unit> {
         return notesService.deleteNote(id)
     }
 }

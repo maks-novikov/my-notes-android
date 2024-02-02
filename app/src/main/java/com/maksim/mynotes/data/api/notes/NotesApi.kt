@@ -13,14 +13,14 @@ interface NotesApi {
     suspend fun getAllNotes(): List<NoteResponse>
 
     @GET("card/{id}")
-    suspend fun getNote(id: Int): NoteResponse
+    suspend fun getNote(id: Long): NoteResponse
 
     @POST("card/create")
     suspend fun createNote(@Body request: CreateNoteRequest): NoteResponse
 
     @DELETE("card/{id}")
-    suspend fun deleteNote(id: Int): Unit
+    suspend fun deleteNote(id: Long)
 
     @PATCH("card")
-    suspend fun updateNote(@Body request: UpdateCardRequest): Unit
+    suspend fun updateNote(@Body request: UpdateCardRequest)
 }

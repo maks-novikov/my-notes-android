@@ -2,7 +2,6 @@ package com.maksim.mynotes.domain.note
 
 data class Note(
     val id: Int,
-    val owner: Int,
     val title: String,
     val description: String,
     val createdAt: String
@@ -13,6 +12,6 @@ data class Note(
     }
 
     fun isSameNote(note: Note): Boolean {
-        return note.id == id && note.owner == owner
+        return note.id == id
     }
 }

@@ -6,7 +6,7 @@ import com.maksim.mynotes.domain.note.NoteRepository
 
 class ObserveNoteUseCase(private val noteRepository: NoteRepository) {
 
-    fun execute(id: Int): LiveData<Note> {
+    fun execute(id: Long): LiveData<Note?> {
         return noteRepository.observeNote(id)
     }
 }

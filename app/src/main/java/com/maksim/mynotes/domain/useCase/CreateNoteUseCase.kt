@@ -6,7 +6,7 @@ import com.maksim.mynotes.domain.note.NoteRepository
 
 class CreateNoteUseCase(private val noteRepository: NoteRepository) {
 
-    suspend fun execute(noteRequest: CreateNoteRequest): AsyncResult<Int> {
+    suspend fun execute(noteRequest: CreateNoteRequest): AsyncResult<Long> {
         return noteRepository.createNote(noteRequest)
     }
 }

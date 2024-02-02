@@ -7,7 +7,7 @@ class NoteMapper {
 
     fun responseToNote(response: NoteResponse): Note {
         return with(response) {
-            Note(id, owner, title, description, createdAt)
+            Note(id, title, description, createdAt)
         }
     }
 
@@ -17,13 +17,13 @@ class NoteMapper {
 
     fun responseToEntity(response: NoteResponse): NoteEntity {
         return with(response) {
-            NoteEntity(id, owner, title, description, createdAt)
+            NoteEntity(id, title, description, createdAt)
         }
     }
 
     fun entityToNote(entity: NoteEntity): Note {
         return with(entity) {
-            Note(id, owner, title, description, createdAt)
+            Note(id, title, description, createdAt)
         }
     }
 }

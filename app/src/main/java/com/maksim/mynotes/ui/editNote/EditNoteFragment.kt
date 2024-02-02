@@ -69,7 +69,7 @@ class EditNoteFragment : Fragment() {
 
     private fun observeState() {
 
-        viewModel.noteLiveData.observe(viewLifecycleOwner) {
+        viewModel.noteLiveData?.observe(viewLifecycleOwner) {
             Log.d("EditNoteFragmentOnNote", "Note -> ${it?.title}")
         }
     }
