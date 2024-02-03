@@ -1,4 +1,4 @@
-package com.maksim.mynotes.ui.home
+package com.maksim.mynotes.ui.summary
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.maksim.mynotes.ui.home
+package com.maksim.mynotes.ui.summary
 
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.maksim.mynotes.R
 import com.maksim.mynotes.databinding.FragmentNotesSummaryBinding
+import com.maksim.mynotes.ui.RecyclerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +21,9 @@ class NotesSummaryFragment : Fragment() {
 
     private var _binding: FragmentNotesSummaryBinding? = null
     private val binding get() = _binding!!
+    private val notesAdapter by lazy {
+        NoteSummaryAdapter()
+    }
 
     private val viewModel by viewModels<NotesSummaryViewModel>()
     override fun onCreateView(
@@ -37,16 +42,25 @@ class NotesSummaryFragment : Fragment() {
         binding.createNoteFab.setOnClickListener {
             findNavController().navigate(R.id.nav_edit_note)
         }
+
+        binding.noteSummaryRv.adapter = notesAdapter
+        binding.noteSummaryRv.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        binding.noteSummaryRv.addItemDecoration(RecyclerItemDecoration(2, 16))
+
         observeState()
     }
 
     private fun observeState() {
         viewModel.notesLiveData.observe(viewLifecycleOwner) {
             Log.d(TAG, "notes: $it")
-            //TODO check only the updated notes and submit to adapter?
+            notesAdapter.submitList(it)
         }
     }
+    private fun initAdapter() {
 
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
