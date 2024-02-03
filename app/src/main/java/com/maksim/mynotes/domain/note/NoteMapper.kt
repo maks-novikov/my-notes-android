@@ -26,4 +26,8 @@ class NoteMapper {
             Note(id, title, description, createdAt)
         }
     }
+
+    fun entityToNote(entities: List<NoteEntity>): List<Note>{
+        return entities.map { entityToNote(it) }
+    }
 }

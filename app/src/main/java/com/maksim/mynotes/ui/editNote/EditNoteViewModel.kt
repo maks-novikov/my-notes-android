@@ -13,6 +13,8 @@ import com.maksim.mynotes.domain.useCase.ObserveNoteUseCase
 import com.maksim.mynotes.domain.useCase.UpdateNoteUseCase
 import com.maksim.mynotes.ui.editNote.EditNoteFragment.Companion.NOTE_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
@@ -44,7 +46,8 @@ class EditNoteViewModel @Inject constructor(
 
 
     fun saveNote(title: String, description: String) {
-        viewModelScope.launch {
+        MainScope().launch {
+
             var currentNote = noteLiveData?.value
             if (currentNote != null) {
                 if (currentNote.title != title || currentNote.description != description) {

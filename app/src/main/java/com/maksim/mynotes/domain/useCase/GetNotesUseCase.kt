@@ -5,7 +5,7 @@ import com.maksim.mynotes.domain.note.Note
 import com.maksim.mynotes.domain.note.NoteRepository
 
 class GetNotesUseCase(private val notesRepository: NoteRepository) {
-    suspend fun execute(): AsyncResult<List<Note>>{
-        return notesRepository.getNotes()
+    suspend fun execute(): List<Note>{
+        return notesRepository.getLocalNotes()
     }
 }

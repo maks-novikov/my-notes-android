@@ -50,11 +50,11 @@ class EditNoteFragment : Fragment() {
 
 
         binding.editNoteTitle.doAfterTextChanged {
-            saveNote()
+            //saveNote()
         }
 
         binding.noteInput.doAfterTextChanged {
-            saveNote()
+            //saveNote()
         }
 
         observeState()

@@ -2,6 +2,7 @@ package com.maksim.mynotes.ui.home
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -38,16 +39,15 @@ class HomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        binding.appBarHome.createNoteFab.setOnClickListener { view ->
-            navController.navigate(R.id.nav_edit_note)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        // menuInflater.inflate(R.menu.home, menu)
+        //menuInflater.inflate(R.menu.home, menu)
         return true
     }
+
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_home)

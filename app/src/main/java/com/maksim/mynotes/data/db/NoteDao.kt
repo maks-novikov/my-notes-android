@@ -15,6 +15,9 @@ interface NoteDao {
     @Query("SELECT * FROM NoteEntity")
     suspend fun getAll(): List<NoteEntity>
 
+    @Query("SELECT * FROM NoteEntity")
+    fun observeAll(): LiveData<List<NoteEntity>>
+
     @Query("SELECT * FROM NoteEntity WHERE id = :id")
     fun observe(id: Long): LiveData<NoteEntity?>
 

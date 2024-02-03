@@ -7,6 +7,8 @@ import com.maksim.mynotes.domain.AsyncResult
 interface NoteRepository {
 
     suspend fun getNotes(): AsyncResult<List<Note>>
+    suspend fun getLocalNotes(): List<Note>
+    fun observeAllNotes(): LiveData<List<Note>>
     suspend fun getNote(id: Long): AsyncResult<Note>
     suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Long>
     suspend fun deleteNote(id: Long): AsyncResult<Unit>

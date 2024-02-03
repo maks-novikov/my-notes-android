@@ -3,6 +3,7 @@ package com.maksim.mynotes.data.note
 import android.provider.ContactsContract.Data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 import com.maksim.mynotes.data.api.notes.CreateNoteRequest
 import com.maksim.mynotes.data.api.notes.NotesService
 import com.maksim.mynotes.data.db.NoteDao
@@ -24,6 +25,14 @@ class DefaultNoteRepository(
             is AsyncResult.Error -> AsyncResult.error(response.error)
             else -> throw IllegalStateException("")
         }
+    }
+
+    override suspend fun getLocalNotes(): List<Note> {
+        return noteDao.getAll().let { mapper.entityToNote(it) }
+    }
+
+    override fun observeAllNotes(): LiveData<List<Note>> {
+        return noteDao.observeAll().map { noteEntities -> mapper.entityToNote(noteEntities) }
     }
 
     override suspend fun getNote(id: Long): AsyncResult<Note> {

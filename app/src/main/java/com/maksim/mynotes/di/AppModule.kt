@@ -2,7 +2,6 @@ package com.maksim.mynotes.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.Update
 import com.maksim.mynotes.data.DefaultAuthRepository
 import com.maksim.mynotes.data.api.BaseUrlProvider
 import com.maksim.mynotes.data.api.TokenInterceptor
@@ -25,6 +24,7 @@ import com.maksim.mynotes.domain.useCase.CreateNoteUseCase
 import com.maksim.mynotes.domain.useCase.GetNotesUseCase
 import com.maksim.mynotes.domain.useCase.LoginUseCase
 import com.maksim.mynotes.domain.useCase.LogoutUseCase
+import com.maksim.mynotes.domain.useCase.ObserveAllNotesUseCase
 import com.maksim.mynotes.domain.useCase.ObserveNoteUseCase
 import com.maksim.mynotes.domain.useCase.RegisterUseCase
 import com.maksim.mynotes.domain.useCase.UpdateNoteUseCase
@@ -171,7 +171,12 @@ object AppModule {
     }
 
     @Provides
-    fun createNoteUseCase(noteRepository: NoteRepository): CreateNoteUseCase {
+    fun provideCreateNoteUseCase(noteRepository: NoteRepository): CreateNoteUseCase {
         return CreateNoteUseCase(noteRepository)
+    }
+
+    @Provides
+    fun provideObserveAllNotesUseCase(noteRepository: NoteRepository): ObserveAllNotesUseCase {
+        return ObserveAllNotesUseCase(noteRepository)
     }
 }
