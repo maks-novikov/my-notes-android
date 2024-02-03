@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.maksim.mynotes.databinding.NoteSummaryItemBinding
 import com.maksim.mynotes.domain.note.Note
 
-class NoteSummaryAdapter : ListAdapter<Note, NoteSummaryAdapter.NoteViewHolder>(NoteDiffer()) {
+class NoteSummaryAdapter (
+    private val noteClickListener: (note: Note) -> Unit
+): ListAdapter<Note, NoteSummaryAdapter.NoteViewHolder>(NoteDiffer()) {
 
     class NoteViewHolder(
         private val noteCell: NoteSummaryItemBinding
@@ -17,6 +19,7 @@ class NoteSummaryAdapter : ListAdapter<Note, NoteSummaryAdapter.NoteViewHolder>(
         fun bind(note: Note) {
             noteCell.titleTv.text = note.title
             noteCell.descriptionTv.text = note.description
+
         }
     }
 
@@ -30,8 +33,9 @@ class NoteSummaryAdapter : ListAdapter<Note, NoteSummaryAdapter.NoteViewHolder>(
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.bind(getItem(position))
-
+        val note = getItem(position)
+        holder.bind(note)
+        holder.itemView.setOnClickListener { noteClickListener(note) }
     }
 
     class NoteDiffer : DiffUtil.ItemCallback<Note>() {

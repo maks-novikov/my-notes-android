@@ -1,7 +1,7 @@
 package com.maksim.mynotes.domain.note
 
 data class Note(
-    val id: Int,
+    val id: Long,
     val title: String,
     val description: String,
     val createdAt: String

@@ -27,6 +27,7 @@ import com.maksim.mynotes.domain.useCase.LogoutUseCase
 import com.maksim.mynotes.domain.useCase.ObserveAllNotesUseCase
 import com.maksim.mynotes.domain.useCase.ObserveNoteUseCase
 import com.maksim.mynotes.domain.useCase.RegisterUseCase
+import com.maksim.mynotes.domain.useCase.SyncNotesUseCase
 import com.maksim.mynotes.domain.useCase.UpdateNoteUseCase
 import dagger.Module
 import dagger.Provides
@@ -178,5 +179,10 @@ object AppModule {
     @Provides
     fun provideObserveAllNotesUseCase(noteRepository: NoteRepository): ObserveAllNotesUseCase {
         return ObserveAllNotesUseCase(noteRepository)
+    }
+
+    @Provides
+    fun provideSyncNotesUseCase(noteRepository: NoteRepository): SyncNotesUseCase {
+        return SyncNotesUseCase(noteRepository)
     }
 }

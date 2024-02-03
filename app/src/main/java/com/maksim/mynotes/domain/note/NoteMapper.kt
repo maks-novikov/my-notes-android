@@ -27,7 +27,13 @@ class NoteMapper {
         }
     }
 
-    fun entityToNote(entities: List<NoteEntity>): List<Note>{
+    fun entityToNote(entities: List<NoteEntity>): List<Note> {
         return entities.map { entityToNote(it) }
+    }
+
+    fun noteToEntity(note: Note): NoteEntity {
+        return with(note) {
+            NoteEntity(id, title, description, createdAt)
+        }
     }
 }

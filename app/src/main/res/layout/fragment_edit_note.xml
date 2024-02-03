@@ -10,7 +10,7 @@
     tools:context=".ui.editNote.EditNoteFragment">
 
     <EditText
-        android:id="@+id/edit_note_title"
+        android:id="@+id/note_title_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/note_input"
+        android:id="@+id/note_description_input"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@null"
@@ -32,6 +32,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_note_title" />
+        app:layout_constraintTop_toBottomOf="@+id/note_title_input" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

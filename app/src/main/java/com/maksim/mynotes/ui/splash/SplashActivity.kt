@@ -9,6 +9,9 @@ import com.maksim.mynotes.ui.auth.AuthActivity
 import com.maksim.mynotes.ui.base.BaseActivity
 import com.maksim.mynotes.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity() {
@@ -21,14 +24,15 @@ class SplashActivity : BaseActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = if (viewModel.session != null) {
-            Intent(this, HomeActivity::class.java)
+        if (viewModel.session != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.synNotes()
+                startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                finish()
+            }
         } else {
-            Intent(this, AuthActivity::class.java)
+            startActivity(Intent(this, AuthActivity::class.java))
+            finish()
         }
-
-        startActivity(intent)
-        finish()
     }
-
 }

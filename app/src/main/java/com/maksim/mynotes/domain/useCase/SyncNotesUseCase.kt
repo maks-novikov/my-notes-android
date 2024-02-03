@@ -1,0 +1,42 @@
+package com.maksim.mynotes.domain.useCase
+
+import android.util.Log
+import com.maksim.mynotes.domain.AsyncResult
+import com.maksim.mynotes.domain.note.Note
+import com.maksim.mynotes.domain.note.NoteRepository
+
+class SyncNotesUseCase(private val noteRepository: NoteRepository) {
+
+    private val TAG = SyncNotesUseCase::class.java.simpleName
+    suspend fun execute() {
+        when (val remoteResponse = noteRepository.getNotes()) {
+            is AsyncResult.Data -> {
+                Log.d(TAG, "Diff notes start")
+                val localNotes = noteRepository.getLocalNotes()
+                diffNotes(remoteResponse.data, localNotes)
+                Log.d(TAG, "Diff notes end")
+            }
+
+            is AsyncResult.Error -> {
+                Log.d(TAG, "error getting remote notes: ${remoteResponse.error.message}")
+            }
+        }
+    }
+
+    private suspend fun diffNotes(remoteNotes: List<Note>, localNotes: List<Note>) {
+        val remoteNotesMap = mutableMapOf<Long, Note>()
+        remoteNotes.forEach { remoteNotesMap[it.id] = it }
+
+        localNotes.forEach { localNote ->
+            when (val remoteNote = remoteNotesMap[localNote.id]) {
+                //Note not exist in remote, delete from local
+                null -> noteRepository.deleteLocal(localNote.id)
+                else -> {
+                    if (remoteNote != localNote) {
+                        noteRepository.updateLocal(remoteNote)
+                    }
+                }
+            }
+        }
+    }
+}

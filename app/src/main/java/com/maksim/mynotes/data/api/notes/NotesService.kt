@@ -2,6 +2,7 @@ package com.maksim.mynotes.data.api.notes
 
 import com.maksim.mynotes.data.api.ApiClient
 import com.maksim.mynotes.domain.AsyncResult
+import com.maksim.mynotes.domain.note.Note
 import kotlinx.coroutines.CoroutineDispatcher
 
 class NotesService(
@@ -24,6 +25,12 @@ class NotesService(
     suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<NoteResponse> {
         return execute {
             notesApi.createNote(noteRequest)
+        }
+    }
+
+    suspend fun updateNote(note: Note) {
+        execute {
+            notesApi.updateNote(UpdateCardRequest(note.id, note.title, note.description))
         }
     }
 

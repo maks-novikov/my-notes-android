@@ -5,13 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.maksim.mynotes.R
 import com.maksim.mynotes.databinding.FragmentNotesSummaryBinding
+import com.maksim.mynotes.domain.note.Note
 import com.maksim.mynotes.ui.RecyclerItemDecoration
+import com.maksim.mynotes.ui.editNote.EditNoteFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,10 +25,15 @@ class NotesSummaryFragment : Fragment() {
     private var _binding: FragmentNotesSummaryBinding? = null
     private val binding get() = _binding!!
     private val notesAdapter by lazy {
-        NoteSummaryAdapter()
+        NoteSummaryAdapter(noteClickListener)
     }
 
     private val viewModel by viewModels<NotesSummaryViewModel>()
+
+    private val noteClickListener: (note: Note) -> Unit = {
+        Log.d(TAG, "note click: $it")
+        findNavController().navigate(R.id.nav_edit_note, bundleOf(EditNoteFragment.NOTE_ID to it.id))
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,9 +66,7 @@ class NotesSummaryFragment : Fragment() {
             notesAdapter.submitList(it)
         }
     }
-    private fun initAdapter() {
 
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

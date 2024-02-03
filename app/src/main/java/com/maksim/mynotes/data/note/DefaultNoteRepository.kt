@@ -55,6 +55,15 @@ class DefaultNoteRepository(
         }
     }
 
+    override suspend fun updateNote(note: Note) {
+        val response = notesService.updateNote(note)
+        updateLocal(note)
+    }
+
+    override suspend fun updateLocal(note: Note) {
+        noteDao.update(mapper.noteToEntity(note))
+    }
+
     override fun observeNote(id: Long): LiveData<Note?> {
         return noteDao.observe(id).map {
             if (it != null) mapper.entityToNote(it) else null
@@ -62,6 +71,11 @@ class DefaultNoteRepository(
     }
 
     override suspend fun deleteNote(id: Long): AsyncResult<Unit> {
+        noteDao.delete(id)
         return notesService.deleteNote(id)
+    }
+
+    override suspend fun deleteLocal(id: Long) {
+        noteDao.delete(id)
     }
 }

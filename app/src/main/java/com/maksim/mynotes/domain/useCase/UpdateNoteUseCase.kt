@@ -6,7 +6,7 @@ import com.maksim.mynotes.domain.note.NoteRepository
 class UpdateNoteUseCase(private val noteRepository: NoteRepository) {
 
     suspend fun execute(note: Note){
-
+        noteRepository.updateNote(note)
     }
 
 }
