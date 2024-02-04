@@ -42,7 +42,6 @@ class EditNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        startUpdateTimer()
         observeState()
     }
 
@@ -72,14 +71,6 @@ class EditNoteFragment : Fragment() {
                 binding.noteDescriptionInput.setText(it.description)
             }
         }
-    }
-
-    private fun startUpdateTimer() {
-        saveNoteTimer.schedule(object : TimerTask() {
-            override fun run() {
-                saveNote()
-            }
-        }, 10000, 10000)
     }
 
     override fun onDestroyView() {
