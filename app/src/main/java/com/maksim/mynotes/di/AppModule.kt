@@ -21,6 +21,7 @@ import com.maksim.mynotes.domain.session.SessionStorage
 import com.maksim.mynotes.domain.session.UserSession
 import com.maksim.mynotes.domain.useCase.CreateEmptyNoteUseCase
 import com.maksim.mynotes.domain.useCase.CreateNoteUseCase
+import com.maksim.mynotes.domain.useCase.DeleteNoteUseCase
 import com.maksim.mynotes.domain.useCase.GetNotesUseCase
 import com.maksim.mynotes.domain.useCase.LoginUseCase
 import com.maksim.mynotes.domain.useCase.LogoutUseCase
@@ -184,5 +185,10 @@ object AppModule {
     @Provides
     fun provideSyncNotesUseCase(noteRepository: NoteRepository): SyncNotesUseCase {
         return SyncNotesUseCase(noteRepository)
+    }
+
+    @Provides
+    fun provideDeleteNoteUseCase(noteRepository: NoteRepository): DeleteNoteUseCase {
+        return DeleteNoteUseCase(noteRepository)
     }
 }

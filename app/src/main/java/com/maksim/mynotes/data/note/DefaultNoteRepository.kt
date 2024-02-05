@@ -55,6 +55,10 @@ class DefaultNoteRepository(
         }
     }
 
+    override suspend fun createLocal(note: Note) {
+        noteDao.create(mapper.noteToEntity(note))
+    }
+
     override suspend fun updateNote(note: Note) {
         val response = notesService.updateNote(note)
         updateLocal(note)

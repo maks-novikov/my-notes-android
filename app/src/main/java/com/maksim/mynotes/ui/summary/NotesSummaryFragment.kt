@@ -31,7 +31,6 @@ class NotesSummaryFragment : Fragment() {
     private val viewModel by viewModels<NotesSummaryViewModel>()
 
     private val noteClickListener: (note: Note) -> Unit = {
-        Log.d(TAG, "note click: $it")
         findNavController().navigate(R.id.nav_edit_note, bundleOf(EditNoteFragment.NOTE_ID to it.id))
     }
     override fun onCreateView(

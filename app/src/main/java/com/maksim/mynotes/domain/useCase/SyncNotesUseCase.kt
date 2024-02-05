@@ -26,6 +26,8 @@ class SyncNotesUseCase(private val noteRepository: NoteRepository) {
     private suspend fun diffNotes(remoteNotes: List<Note>, localNotes: List<Note>) {
         val remoteNotesMap = mutableMapOf<Long, Note>()
         remoteNotes.forEach { remoteNotesMap[it.id] = it }
+        val localNotesMap = mutableMapOf<Long, Note>()
+        localNotes.forEach { localNotesMap[it.id] = it }
 
         localNotes.forEach { localNote ->
             when (val remoteNote = remoteNotesMap[localNote.id]) {
@@ -35,6 +37,14 @@ class SyncNotesUseCase(private val noteRepository: NoteRepository) {
                     if (remoteNote != localNote) {
                         noteRepository.updateLocal(remoteNote)
                     }
+                }
+            }
+        }
+
+        remoteNotes.forEach { remoteNote ->
+            when (localNotesMap[remoteNote.id]) {
+                null -> {
+                    noteRepository.createLocal(remoteNote)
                 }
             }
         }

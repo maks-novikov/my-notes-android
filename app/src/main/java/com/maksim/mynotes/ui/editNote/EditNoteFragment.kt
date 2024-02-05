@@ -3,20 +3,21 @@ package com.maksim.mynotes.ui.editNote
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.maksim.mynotes.R
 import com.maksim.mynotes.databinding.FragmentEditNoteBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Timer
-
-import java.util.TimerTask
-
 
 @AndroidEntryPoint
 class EditNoteFragment : Fragment() {
@@ -25,11 +26,15 @@ class EditNoteFragment : Fragment() {
         const val NOTE_ID = "noteId"
     }
 
-    private val saveNoteTimer = Timer()
     private val viewModel by viewModels<EditNoteViewModel>()
 
     private var _binding: FragmentEditNoteBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,16 +47,34 @@ class EditNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observeState()
     }
 
-    private fun saveNote() {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.edit_note_menu, menu)
+    }
 
-        showMessage("Saving...")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.action_delete -> {
+                viewModel.deleteNote()
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    private fun saveNote() {
         val title = binding.noteTitleInput.text.toString().trim()
         val description = binding.noteDescriptionInput.text.toString().trim()
 
-        viewModel.saveNote(title, description)
+        if(title.isNotEmpty() || description.isNotEmpty()) {
+            showMessage("Saving...")
+            viewModel.saveNote(title, description)
+        }
     }
 
 
@@ -66,15 +89,19 @@ class EditNoteFragment : Fragment() {
         viewModel.noteLiveData?.observe(viewLifecycleOwner) { note ->
             Log.d("EditNoteFragmentOnNote", "Note -> ${note?.title}")
 
-            note?.let {
-                binding.noteTitleInput.setText(it.title)
-                binding.noteDescriptionInput.setText(it.description)
+            if (note != null) {
+                binding.noteTitleInput.setText(note.title)
+                binding.noteDescriptionInput.setText(note.description)
+            } else {
+                showMessage("Deleted...")
+                binding.noteTitleInput.setText("")
+                binding.noteDescriptionInput.setText("")
+                findNavController().popBackStack()
             }
         }
     }
 
     override fun onDestroyView() {
-        saveNoteTimer.cancel()
         saveNote()
         super.onDestroyView()
         _binding = null

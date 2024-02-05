@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red_error">#BB4F4F</color>
+    <color name="cell_stroke">#626262</color>
+    <color name="main_text">#363636</color>
+    <color name="main_background">@color/white</color>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.maksim.mynotes.databinding.ActivitySplashBinding
-import com.maksim.mynotes.ui.MainActivity
 import com.maksim.mynotes.ui.auth.AuthActivity
 import com.maksim.mynotes.ui.base.BaseActivity
 import com.maksim.mynotes.ui.home.HomeActivity
@@ -26,7 +25,7 @@ class SplashActivity : BaseActivity() {
 
         if (viewModel.session != null) {
             CoroutineScope(Dispatchers.IO).launch {
-                viewModel.synNotes()
+                viewModel.syncNotes()
                 startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                 finish()
             }

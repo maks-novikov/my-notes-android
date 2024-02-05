@@ -29,4 +29,5 @@
     <string name="edit_note">Edit Note</string>
     <string name="edit_note_title_hint">Title\n</string>
     <string name="edit_note_input_hint">Note...</string>
+    <string name="delete">Delete</string>
 </resources>

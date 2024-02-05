@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.maksim.mynotes.data.api.notes.CreateNoteRequest
 import com.maksim.mynotes.domain.AsyncResult
 import com.maksim.mynotes.domain.note.Note
 import com.maksim.mynotes.domain.useCase.CreateNoteUseCase
+import com.maksim.mynotes.domain.useCase.DeleteNoteUseCase
 import com.maksim.mynotes.domain.useCase.ObserveNoteUseCase
 import com.maksim.mynotes.domain.useCase.UpdateNoteUseCase
 import com.maksim.mynotes.ui.editNote.EditNoteFragment.Companion.NOTE_ID
@@ -22,7 +24,8 @@ class EditNoteViewModel @Inject constructor(
     private val state: SavedStateHandle,
     private val observeNoteUseCase: ObserveNoteUseCase,
     private val creteNoteUseCase: CreateNoteUseCase,
-    private val updateNoteUseCase: UpdateNoteUseCase
+    private val updateNoteUseCase: UpdateNoteUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase
 ) : ViewModel() {
 
     private val _noteLiveData = MutableLiveData<Note>()
@@ -66,6 +69,15 @@ class EditNoteViewModel @Inject constructor(
                     is AsyncResult.Error -> {}
                 }
 
+            }
+        }
+    }
+
+    fun deleteNote() {
+        val id = state.get<Long>(NOTE_ID)
+        if (id != null) {
+            MainScope().launch {
+                deleteNoteUseCase.execute(id)
             }
         }
     }

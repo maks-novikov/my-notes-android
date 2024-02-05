@@ -11,6 +11,7 @@ interface NoteRepository {
     fun observeAllNotes(): LiveData<List<Note>>
     suspend fun getNote(id: Long): AsyncResult<Note>
     suspend fun createNote(noteRequest: CreateNoteRequest): AsyncResult<Long>
+    suspend fun createLocal(note: Note)
     suspend fun updateNote(note: Note)
     suspend fun updateLocal(note: Note)
     suspend fun deleteNote(id: Long): AsyncResult<Unit>
