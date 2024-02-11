@@ -3,8 +3,12 @@ package com.maksim.mynotes.ui.summary
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,6 +37,12 @@ class NotesSummaryFragment : Fragment() {
     private val noteClickListener: (note: Note) -> Unit = {
         findNavController().navigate(R.id.nav_edit_note, bundleOf(EditNoteFragment.NOTE_ID to it.id))
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,6 +67,21 @@ class NotesSummaryFragment : Fragment() {
         binding.noteSummaryRv.addItemDecoration(RecyclerItemDecoration(2, 16))
 
         observeState()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.summary_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.action_sync_notes -> {
+                viewModel.syncNotes()
+                Toast.makeText(requireContext(), "Syncing...", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> false
+        }
     }
 
     private fun observeState() {

@@ -32,9 +32,14 @@ class SyncNotesUseCase(private val noteRepository: NoteRepository) {
         localNotes.forEach { localNote ->
             when (val remoteNote = remoteNotesMap[localNote.id]) {
                 //Note not exist in remote, delete from local
-                null -> noteRepository.deleteLocal(localNote.id)
+                null -> {
+                    Log.d(TAG, "deleting local: ${localNote.id}")
+                    noteRepository.deleteLocal(localNote.id)
+                }
+
                 else -> {
                     if (remoteNote != localNote) {
+                        Log.d(TAG, "updating from remote: ${remoteNote.id}")
                         noteRepository.updateLocal(remoteNote)
                     }
                 }
@@ -44,6 +49,7 @@ class SyncNotesUseCase(private val noteRepository: NoteRepository) {
         remoteNotes.forEach { remoteNote ->
             when (localNotesMap[remoteNote.id]) {
                 null -> {
+                    Log.d(TAG, "creating from remote: ${remoteNote.id}")
                     noteRepository.createLocal(remoteNote)
                 }
             }
