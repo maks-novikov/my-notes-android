@@ -1,13 +1,12 @@
 package com.maksim.mynotes.data.note
 
-import android.provider.ContactsContract.Data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
+import androidx.room.Database
 import com.maksim.mynotes.data.api.notes.CreateNoteRequest
 import com.maksim.mynotes.data.api.notes.NotesService
+import com.maksim.mynotes.data.db.MyNotesDb
 import com.maksim.mynotes.data.db.NoteDao
-import com.maksim.mynotes.data.model.NoteEntity
 import com.maksim.mynotes.domain.AsyncResult
 import com.maksim.mynotes.domain.note.Note
 import com.maksim.mynotes.domain.note.NoteMapper
@@ -17,7 +16,8 @@ import java.lang.IllegalStateException
 class DefaultNoteRepository(
     private val notesService: NotesService,
     private val noteDao: NoteDao,
-    private val mapper: NoteMapper
+    private val mapper: NoteMapper,
+    private var syncing: Boolean = false
 ) : NoteRepository {
     override suspend fun getNotes(): AsyncResult<List<Note>> {
         return when (val response = notesService.getAllNotes()) {
@@ -25,6 +25,14 @@ class DefaultNoteRepository(
             is AsyncResult.Error -> AsyncResult.error(response.error)
             else -> throw IllegalStateException("")
         }
+    }
+
+    override fun setSyncing(isSyncing: Boolean) {
+        syncing = isSyncing
+    }
+
+    override fun isSyncing(): Boolean {
+        return syncing
     }
 
     override suspend fun getLocalNotes(): List<Note> {
@@ -81,5 +89,9 @@ class DefaultNoteRepository(
 
     override suspend fun deleteLocal(id: Long) {
         noteDao.delete(id)
+    }
+
+    override suspend fun clearAll() {
+        noteDao.deleteAll()
     }
 }

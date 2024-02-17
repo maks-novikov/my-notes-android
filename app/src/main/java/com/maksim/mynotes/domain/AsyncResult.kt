@@ -12,5 +12,6 @@ abstract class AsyncResult<T> {
     }
 
     data class Data<V>(val data: V) : AsyncResult<V>()
-    data class Error<E>(val error: Throwable) : AsyncResult<E>()
+    data class
+    Error<E>(val error: Throwable) : AsyncResult<E>()
 }

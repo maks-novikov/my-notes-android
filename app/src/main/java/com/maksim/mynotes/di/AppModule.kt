@@ -148,8 +148,11 @@ object AppModule {
     }
 
     @Provides
-    fun provideLogoutUseCase(authRepository: AuthRepository): LogoutUseCase {
-        return LogoutUseCase(authRepository)
+    fun provideLogoutUseCase(
+        authRepository: AuthRepository,
+        noteRepository: NoteRepository
+    ): LogoutUseCase {
+        return LogoutUseCase(authRepository, noteRepository)
     }
 
     @Provides

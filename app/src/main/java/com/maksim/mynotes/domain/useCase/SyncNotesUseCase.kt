@@ -8,7 +8,11 @@ import com.maksim.mynotes.domain.note.NoteRepository
 class SyncNotesUseCase(private val noteRepository: NoteRepository) {
 
     private val TAG = SyncNotesUseCase::class.java.simpleName
-    suspend fun execute() {
+    suspend fun execute(): AsyncResult<Unit> {
+        if (noteRepository.isSyncing())
+            return AsyncResult.error(Throwable("PROCESS_BUSY"))
+
+        noteRepository.setSyncing(true)
         when (val remoteResponse = noteRepository.getNotes()) {
             is AsyncResult.Data -> {
                 Log.d(TAG, "Diff notes start")
@@ -21,6 +25,8 @@ class SyncNotesUseCase(private val noteRepository: NoteRepository) {
                 Log.d(TAG, "error getting remote notes: ${remoteResponse.error.message}")
             }
         }
+        noteRepository.setSyncing(false)
+        return AsyncResult.success(Unit)
     }
 
     private suspend fun diffNotes(remoteNotes: List<Note>, localNotes: List<Note>) {

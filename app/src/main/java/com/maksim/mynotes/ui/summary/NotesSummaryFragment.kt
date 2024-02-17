@@ -35,7 +35,10 @@ class NotesSummaryFragment : Fragment() {
     private val viewModel by viewModels<NotesSummaryViewModel>()
 
     private val noteClickListener: (note: Note) -> Unit = {
-        findNavController().navigate(R.id.nav_edit_note, bundleOf(EditNoteFragment.NOTE_ID to it.id))
+        findNavController().navigate(
+            R.id.nav_edit_note,
+            bundleOf(EditNoteFragment.NOTE_ID to it.id)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,12 +77,13 @@ class NotesSummaryFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.action_sync_notes -> {
                 viewModel.syncNotes()
                 Toast.makeText(requireContext(), "Syncing...", Toast.LENGTH_SHORT).show()
                 true
             }
+
             else -> false
         }
     }
@@ -88,6 +92,10 @@ class NotesSummaryFragment : Fragment() {
         viewModel.notesLiveData.observe(viewLifecycleOwner) {
             Log.d(TAG, "notes: $it")
             notesAdapter.submitList(it)
+        }
+
+        viewModel.generalErrorLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
 

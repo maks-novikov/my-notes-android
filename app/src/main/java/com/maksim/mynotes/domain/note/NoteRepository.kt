@@ -6,6 +6,8 @@ import com.maksim.mynotes.domain.AsyncResult
 
 interface NoteRepository {
 
+    fun setSyncing(isSyncing: Boolean)
+    fun isSyncing(): Boolean
     suspend fun getNotes(): AsyncResult<List<Note>>
     suspend fun getLocalNotes(): List<Note>
     fun observeAllNotes(): LiveData<List<Note>>
@@ -17,4 +19,5 @@ interface NoteRepository {
     suspend fun deleteNote(id: Long): AsyncResult<Unit>
     suspend fun deleteLocal(id: Long)
     fun observeNote(id: Long): LiveData<Note?>
+    suspend fun clearAll()
 }

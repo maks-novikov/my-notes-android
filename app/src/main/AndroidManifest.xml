@@ -36,6 +36,10 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.auth.softlogout.SoftLogoutActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

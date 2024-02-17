@@ -32,4 +32,7 @@ interface NoteDao {
 
     @Query("DELETE FROM NoteEntity WHERE id = :id")
     suspend fun delete(id: Long)
+
+    @Query("DELETE FROM NoteEntity")
+    suspend fun deleteAll()
 }
