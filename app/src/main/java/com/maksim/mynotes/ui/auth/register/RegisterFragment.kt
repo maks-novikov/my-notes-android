@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.maksim.mynotes.R
 import com.maksim.mynotes.databinding.FragmentRegisterBinding
-import com.maksim.mynotes.ui.MainActivity
 import com.maksim.mynotes.ui.base.BaseFragment
 import com.maksim.mynotes.ui.home.HomeActivity
 

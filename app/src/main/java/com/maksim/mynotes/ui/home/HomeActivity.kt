@@ -2,7 +2,8 @@ package com.maksim.mynotes.ui.home
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
+import android.widget.TextView
+import androidx.activity.viewModels
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,6 +22,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
 
+
+    private val viewModel by viewModels<HomeViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,6 +42,10 @@ class HomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+
+        viewModel.userSession?.let {
+            onAccountData(it.username)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -47,10 +54,17 @@ class HomeActivity : AppCompatActivity() {
         return true
     }
 
-
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_home)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun onAccountData(username: String) {
+        with(binding.navView.getHeaderView(0)) {
+            findViewById<TextView>(R.id.nav_drawer_title_tv).text = username
+            findViewById<TextView>(R.id.logout_tv).setOnClickListener {
+                viewModel.logout()
+            }
+        }
     }
 }

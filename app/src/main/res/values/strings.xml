@@ -31,4 +31,5 @@
     <string name="edit_note_input_hint">Note...</string>
     <string name="delete">Delete</string>
     <string name="sign_in_required">Sign in required</string>
+    <string name="logout">Logout</string>
 </resources>
