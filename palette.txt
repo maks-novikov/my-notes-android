@@ -1,0 +1,44 @@
+/* Coolors Exported Palette - https://coolors.co/413c58-a3c4bc-bfd7b5-e7efc5-f2e7c9 */
+
+- Tailwind
+
+{ 'english_violet': { DEFAULT: '#413c58', 100: '#0d0c12', 200: '#1a1823', 300: '#272435', 400: '#343046', 500: '#413c58', 600: '#615983', 700: '#857ea7', 800: '#aea9c4', 900: '#d6d4e2' }, 'ash_gray': { DEFAULT: '#a3c4bc', 100: '#1c2c28', 200: '#38574f', 300: '#548377', 400: '#76a79b', 500: '#a3c4bc', 600: '#b4cfc9', 700: '#c7dbd6', 800: '#dae7e4', 900: '#ecf3f1' }, 'tea_green': { DEFAULT: '#bfd7b5', 100: '#23341c', 200: '#466738', 300: '#699b54', 400: '#94bc82', 500: '#bfd7b5', 600: '#cde0c5', 700: '#d9e7d3', 800: '#e6efe2', 900: '#f2f7f0' }, 'cream': { DEFAULT: '#e7efc5', 100: '#3b4413', 200: '#768825', 300: '#afc93b', 400: '#cbdc7f', 500: '#e7efc5', 600: '#ebf2cf', 700: '#f0f5db', 800: '#f5f8e7', 900: '#fafcf3' }, 'parchment': { DEFAULT: '#f2e7c9', 100: '#473911', 200: '#8f7223', 300: '#cfa83b', 400: '#e1c882', 500: '#f2e7c9', 600: '#f5ecd4', 700: '#f7f1df', 800: '#faf6ea', 900: '#fcfaf4' } }
+
+
+- With #
+
+#413c58, #a3c4bc, #bfd7b5, #e7efc5, #f2e7c9
+
+- Object
+
+{"English Violet":"413c58","Ash gray":"a3c4bc","Tea green":"bfd7b5","Cream":"e7efc5","Parchment":"f2e7c9"}
+
+- Extended Array
+- XML
+
+<palette>
+  <color name="English Violet" hex="413c58" r="65" g="60" b="88" />
+  <color name="Ash gray" hex="a3c4bc" r="163" g="196" b="188" />
+  <color name="Tea green" hex="bfd7b5" r="191" g="215" b="181" />
+  <color name="Cream" hex="e7efc5" r="231" g="239" b="197" />
+  <color name="Parchment" hex="f2e7c9" r="242" g="231" b="201" />
+</palette>
+
+
+<------------------------------------------------------>
+
+
+
+light theme:
+e8e8e8 - most dark
+f2f2f2 - light dark (primary)
+fdfdfd - light
+F95502 - accent
+393939 - text/icon
+
+dark theme:
+949494 - most dark
+A0A0A0 - light dark (primary)
+AAAAAA - light
+F95502 - accent
+ffffff - text/icon
