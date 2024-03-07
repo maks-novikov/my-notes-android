@@ -20,7 +20,7 @@
             android:name=".ui.home.HomeActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.MyNotes.NoActionBar" />
+             />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
@@ -30,9 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="true" />
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false" />
